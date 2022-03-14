@@ -23,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
     }
+
     public void onNumberClick(View view) {
-        String number = binding.tvResult.getText().toString();
         switch (view.getId()) {
             case R.id.btn_one:
                 onClick("1");
@@ -74,12 +74,21 @@ public class MainActivity extends AppCompatActivity {
                 isOperationClick = true;
                 break;
         }
-    } 
+    }
+    private void WithoutDot() {
+        if (result % 1 == 0) {
+            resultToString = String.valueOf(Math.round(result));
+        } else {
+            resultToString = String.valueOf(result);
+        }
+    }
     private void PlusMinus() {
         if (binding.tvResult.getText().toString().contains("-")) {
-            binding.tvResult.setText("" + binding.tvResult.getText().toString().replace("-", ""));
+            binding.tvResult.setText
+                    ("" + binding.tvResult.getText().toString().replace("-", ""));
         } else {
-            binding.tvResult.setText("-" + binding.tvResult.getText().toString().replace("+", ""));
+            binding.tvResult.setText
+                    ("-" + binding.tvResult.getText().toString().replace("+", ""));
         }
     }
     private void onClick(String number) {
@@ -92,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
     private void Point(String number) {
         String numberWithDot = number + DOT;
         number = numberWithDot;
-          if (!number.contains(".")) {
+        if (!number.contains(".")) {
             binding.tvResult.setText(numberWithDot);
         } else {
             binding.tvResult.setText(number);
@@ -104,22 +113,26 @@ public class MainActivity extends AppCompatActivity {
             case "+":
                 result = first + second;
                 resultToString = String.valueOf(result);
+                WithoutDot();
                 break;
             case "-":
                 result = first - second;
                 resultToString = String.valueOf(result);
+                WithoutDot();
                 break;
             case "*":
                 result = first * second;
                 resultToString = String.valueOf(result);
+                WithoutDot();
                 break;
             case "/":
                 result = first / second;
                 resultToString = String.valueOf(result);
+                WithoutDot();
                 break;
         }
-                binding.tvResult.setText(resultToString);
-                isOperationClick = false;
+        binding.tvResult.setText(resultToString);
+        isOperationClick = true;
     }
     public void onOperationClick(View view) {
         switch (view.getId()) {
@@ -154,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_equal:
                 FinishWorkOperation();
+                isOperationClick = true;
         }
     }
 }
